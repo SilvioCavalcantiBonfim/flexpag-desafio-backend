@@ -29,11 +29,11 @@ A Flexpag é uma empresa de tecnologia especializada em soluções digitais de p
 
 ### 🚰 Fluxo esperado
 
-- Quando um agendamento é enviado deve ser registrado como `pending` e retornado o id;
-- O usuário deve conseguir consultar o status do agendamento `pending`|`paid`;
-- :warning: **Se o pagamento ainda não foi realizado o usuário pode**;
-  - Excluir o agendamento;
-  - Atualizar a data:hora do agendamento;
+- [X] Quando um agendamento é enviado deve ser registrado como `pending` e retornado o id;
+- [X] O usuário deve conseguir consultar o status do agendamento `pending`|`paid`;
+- [ ] :warning: **Se o pagamento ainda não foi realizado o usuário pode**;
+  - [X] Excluir o agendamento;
+  - [ ] Atualizar a data:hora do agendamento;
   
 ## ✔️ Critérios de Avaliação
 
