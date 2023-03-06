@@ -6,25 +6,25 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.naming.NoPermissionException;
 import java.util.*;
 
+import static java.lang.System.currentTimeMillis;
+
 @Service
-public class PaymentService implements PaymentServiceInterface {
+public class PaymentService{
     @Autowired
     private PaymentRepository paymentRepository;
 
-    @Override
-    public Map<String, Long> createSchedule(Payment p) {
+    public Map<String, Long> createSchedule(Long timestamp) {
         Map<String, Long> rt = new LinkedHashMap<>();
-        if(p.getDate_payment() < System.currentTimeMillis()) {
+        if(timestamp < currentTimeMillis())
             throw new IllegalArgumentException("Invalid date to schedule payment.");
-        }
-        Payment schedule = paymentRepository.save(p);
+        Payment schedule = paymentRepository.save(new Payment(Payment.STATE.PENDING,timestamp));
         rt.put("id", schedule.getId());
         return rt;
     }
 
-//    public Map<String, Object>
     public Optional<Payment> FindById(Long id) throws NoSuchElementException{
         Optional<Payment> p = paymentRepository.findById(id);
         if(p.get().getState_payment() == Payment.STATE.PENDING)
@@ -32,26 +32,31 @@ public class PaymentService implements PaymentServiceInterface {
         return p;
     }
 
-    public void Delete(Long id) throws Exception {
-        Payment p = FindById(id).get();
-        if(p.getState_payment() == Payment.STATE.PAID)
-            throw new Exception();
+    public void Delete(Long id) throws NoPermissionException, NoSuchElementException {
+        Optional<Payment> p = FindById(id);
+        if(p.get().getState_payment() == Payment.STATE.PAID)
+            throw new NoPermissionException();
         else
-            updateState(p);
-        paymentRepository.delete(p);
+            updateState(p.get());
+        paymentRepository.deleteById(p.get().getId());
     }
 
-    public Payment update(Long id, Long newTimestamp) throws Exception {
-        Payment p = FindById(id).get();
-        if (newTimestamp > System.currentTimeMillis())
+    public Payment update(Long id, Long newTimestamp) throws NoSuchElementException, IllegalArgumentException, NoPermissionException{
+        Optional<Payment> p = FindById(id);
+        if(newTimestamp < System.currentTimeMillis())
             throw new IllegalArgumentException();
-        if(p.getState_payment() == Payment.STATE.PENDING)
-            throw new Exception();
-        return p;
+        if(p.get().getState_payment() == Payment.STATE.PAID)
+            throw new NoPermissionException();
+        else
+            updateState(p.get());
+        Payment rt = p.get();
+        rt.setTimestamp_payment(newTimestamp);
+        paymentRepository.save(rt);
+        return rt;
     }
 
     private void updateState(@NotNull Payment p){
-        if(p.getDate_payment() < System.currentTimeMillis())
+        if(p.getTimestamp_payment() < currentTimeMillis())
             p.setState_payment(Payment.STATE.PAID);
         paymentRepository.save(p);
     }

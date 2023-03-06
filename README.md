@@ -31,9 +31,9 @@ A Flexpag é uma empresa de tecnologia especializada em soluções digitais de p
 
 - [X] Quando um agendamento é enviado deve ser registrado como `pending` e retornado o id;
 - [X] O usuário deve conseguir consultar o status do agendamento `pending`|`paid`;
-- [ ] :warning: **Se o pagamento ainda não foi realizado o usuário pode**;
+- [X] :warning: **Se o pagamento ainda não foi realizado o usuário pode**;
   - [X] Excluir o agendamento;
-  - [ ] Atualizar a data:hora do agendamento;
+  - [X] Atualizar a data:hora do agendamento;
   
 ## ✔️ Critérios de Avaliação
 
@@ -83,8 +83,8 @@ spring:
 ```
 
 ### :notebook: To-do list
-- [ ] Fazer o fork do projeto
-- [ ] Implementar solução
+- [X] Fazer o fork do projeto
+- [X] Implementar solução
 - [ ] Enviar link do projeto
 
 :information_source: _Sinta-se livre para incluir quaisquer observações que achar necessário_
@@ -92,3 +92,7 @@ spring:
 ---
 
 _O desafio acima foi cuidadosamente construído para propósitos de avaliação apenas._
+
+### Workspace do postman
+
+41581f60-6ceb-4c6c-af5a-ee1a71c1f0c0

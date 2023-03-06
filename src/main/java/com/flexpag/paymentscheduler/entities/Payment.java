@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Builder
 
 @Entity
@@ -23,15 +24,12 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private float value_payment;
-
     private STATE state_payment;
 
-    private Long date_payment;
+    private Long timestamp_payment;
 
-    public Payment(float value_payment, STATE state_payment, Long date_payment) {
-        this.value_payment = value_payment;
+    public Payment(STATE state_payment, Long timestamp_payment) {
         this.state_payment = state_payment;
-        this.date_payment = date_payment;
+        this.timestamp_payment = timestamp_payment;
     }
 }
