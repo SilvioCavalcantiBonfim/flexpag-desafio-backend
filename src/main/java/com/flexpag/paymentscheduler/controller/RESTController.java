@@ -35,7 +35,7 @@ public class RESTController {
             rt.put("state",paymentService.FindById(id).get().getState_payment());
             return rt;
         }catch (NoSuchElementException e){
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Schedule payment not found.");
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Scheduled payment not found.");
         }
     }
 
@@ -46,7 +46,7 @@ public class RESTController {
             rt.put("state",paymentService.FindById(id).get().getState_payment());
             return rt;
         }catch (NoSuchElementException e){
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Schedule payment not found.");
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Scheduled payment not found.");
         }
     }
 
@@ -55,7 +55,7 @@ public class RESTController {
         try{
             paymentService.Delete(id);
         }catch (NoSuchElementException e){
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Schedule payment not found.");
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Scheduled payment not found.");
         }catch (NoPermissionException e){
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Payment was executed.");
         }
@@ -66,7 +66,7 @@ public class RESTController {
         try{
             paymentService.Delete(id);
         }catch (NoSuchElementException e){
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Schedule payment not found.");
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Scheduled payment not found.");
         }catch (NoPermissionException e){
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Payment was executed.");
         }
@@ -77,11 +77,11 @@ public class RESTController {
         try{
             return paymentService.update(update.get("id"), update.get("timestamp"));
         }catch (IllegalArgumentException | NullPointerException e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Invalid data to update schedule payment.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Invalid date to update scheduled payment.");
         } catch (NoPermissionException e) {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Payment was executed.");
         }catch (NoSuchElementException e){
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Schedule payment not found.");
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Scheduled payment not found.");
         }
     }
 
